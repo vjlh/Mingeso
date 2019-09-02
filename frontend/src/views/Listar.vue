@@ -18,7 +18,7 @@
                     tile
                     size="80"
                     color="grey"
-                    ></v-list-item-avatar>
+                    > <v-img src="https://randomuser.me/api/portraits/men/85.jpg"/>  </v-list-item-avatar>
                 </v-list-item>
 
                 </v-card>

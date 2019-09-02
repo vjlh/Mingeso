@@ -11,8 +11,11 @@
     "@mdi/font": "^3.6.95",
     "core-js": "^2.6.5",
     "roboto-fontface": "*",
+    "rut-formatter": "^1.0.1",
+    "v-mask": "^2.0.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
+    "vue-the-mask": "^0.11.1",
     "vuetify": "^2.0.0",
     "vuex": "^3.0.1"
   },

@@ -3,6 +3,8 @@
       v-model="drawer"
       permanent
       absolute
+      prominent
+      
     >
       <v-list-item>
         <v-list-item-icon>

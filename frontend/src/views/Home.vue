@@ -9,6 +9,7 @@
         v-model="name"
         :counter="125"
         :rules="nameRules"
+        prepend-icon="mdi-account-outline"
         label="Nombre"
         required
       ></v-text-field>
@@ -16,6 +17,9 @@
       <v-text-field
         v-model="rut"
         v-mask="mask"
+        :rules="rutRules"
+
+        prepend-icon="mdi-account-card-details-outline"
         label="Rut"
         required
       ></v-text-field>
@@ -24,6 +28,7 @@
         ref="dialog"
         v-model="modal"
         :return-value.sync="date"
+        hide-overlay
         persistent
         full-width
         width="290px"
@@ -32,6 +37,9 @@
           <v-text-field
             v-model="date"
             label="Fecha de nacimiento"
+            prepend-icon="mdi-calendar"
+            required
+            :rules="[v => !!v || 'Item is required']"
             readonly
             v-on="on"
           ></v-text-field>
@@ -44,13 +52,46 @@
       </v-dialog>
 
       <v-select
+
         v-model="carrera"
         :items="carreras"
         item-text="name"
+        prepend-icon="mdi-school"
         :rules="[v => !!v || 'Item is required']"
         label="Carrera"
         required
+
       ></v-select>
+
+      <v-file-input
+        v-model="files"
+        counter
+        accept="image/png, image/jpeg, image/bmp"
+        label="Cargar Foto (Opcional)"
+        placeholder="Seleccionar Archivo"
+        prepend-icon="mdi-camera-outline"
+        outlined
+        :show-size="1000"
+      >
+        <template v-slot:selection="{ index, text }">
+          <v-chip
+            v-if="index < 2"
+            color="primary"
+            dark
+            label
+            small
+          >
+            {{ text }}
+          </v-chip>
+
+          <span
+            v-else-if="index === 2"
+            class="overline grey--text text--darken-3 mx-2"
+          >
+            +{{ files.length - 2 }} File(s)
+          </span>
+        </template>
+      </v-file-input>
 
       <v-checkbox
         v-model="checkbox"
@@ -90,32 +131,22 @@
     data: () => ({
       valid: true,
       mask: '##.###.###-#',
-      menu: false,
       modal: false,
-      menu2: false,
       carreras: [],
+      files: [],
 
       name: '',
       rut: '',
       carrera: null,
       date: '',
-      algo:'ajaja',      
-
 
       nameRules: [
         v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        v => (v && v.length <= 125) || 'El nombre debe tener como máximo 125 carácteres',
       ],
       rutRules:[
         v => !!v || 'El rut es requerido',
         //v => require('rut-formatter') || 'Rut must be valid', 
-      ],
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
       ],
       checkbox: false,
     }),
@@ -125,12 +156,17 @@
         if (this.$refs.form.validate()) {
           this.snackbar = true
         }
+        console.log('algo')
+
       },
       reset () {
         this.$refs.form.reset()
       },
 
       sendUserData() {
+        if (this.$refs.form.validate()){
+        this.snackbar = true
+
         axios.post('http://localhost:8090/alumno', 
         {
           name: this.name,
@@ -143,7 +179,10 @@
         }).catch(e => {
           console.log(e);
         });
-        console.log('wiii')
+
+        this.reset()
+        }
+
       },
       listarCarreras(){
         try{
@@ -152,7 +191,7 @@
           .then(response => (this.carreras = response.data))
         }catch(err){console.log(err)}
         console.log(this.carreras)
-      } 
+      }
 
     },
     mounted(){

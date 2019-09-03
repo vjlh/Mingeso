@@ -7,7 +7,7 @@
     >
       <v-text-field
         v-model="name"
-        :counter="10"
+        :counter="125"
         :rules="nameRules"
         label="Nombre"
         required
@@ -44,8 +44,9 @@
       </v-dialog>
 
       <v-select
-        v-model="select"
-        :items="items"
+        v-model="carrera"
+        :items="carreras"
+        item-text="name"
         :rules="[v => !!v || 'Item is required']"
         label="Carrera"
         required
@@ -54,7 +55,7 @@
       <v-checkbox
         v-model="checkbox"
         :rules="[v => !!v || 'You must agree to continue!']"
-        label="¿Está seguro de la postulación?"
+        label="Confirmar acción"
         required
       ></v-checkbox>
 
@@ -62,9 +63,9 @@
         :disabled="!valid"
         color="success"
         class="mr-4"
-        @click="validate"
+        @click="sendUserData"
       >
-        Validate
+        Agregar
       </v-btn>
 
       <v-btn
@@ -72,14 +73,7 @@
         class="mr-4"
         @click="reset"
       >
-        Reset Form
-      </v-btn>
-
-      <v-btn
-        color="warning"
-        @click="resetValidation"
-      >
-        Reset Validation
+        Limpiar Campos
       </v-btn>
     </v-form>
   </v-container>
@@ -87,6 +81,8 @@
 
 <script>
   import { mask } from 'vue-the-mask'
+  import axios from 'axios'
+
   export default {
     directives: {
       mask,
@@ -94,17 +90,22 @@
     data: () => ({
       valid: true,
       mask: '##.###.###-#',
-      date: '',
       menu: false,
       modal: false,
       menu2: false,
+      carreras: [],
 
       name: '',
+      rut: '',
+      carrera: null,
+      date: '',
+      algo:'ajaja',      
+
+
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
-      rut: '',
       rutRules:[
         v => !!v || 'El rut es requerido',
         //v => require('rut-formatter') || 'Rut must be valid', 
@@ -128,15 +129,34 @@
       reset () {
         this.$refs.form.reset()
       },
-      resetValidation () {
-        this.$refs.form.resetValidation()
+
+      sendUserData() {
+        axios.post('http://localhost:8090/alumno', 
+        {
+          name: this.name,
+          rut: this.rut,
+          carrera: this.carrera,
+          nacimiento: this.date,
+        }
+        ).then(response => {
+        // Respuesta del servidor
+        }).catch(e => {
+          console.log(e);
+        });
+        console.log('wiii')
       },
+      listarCarreras(){
+        try{
+          axios 
+          .get('http://localhost:8090/carreras')
+          .then(response => (this.carreras = response.data))
+        }catch(err){console.log(err)}
+        console.log(this.carreras)
+      } 
+
     },
     mounted(){
-      const rut = require('rut-formatter')
-      const value = "197839686"
-      console.log(rut)
-      console.log(rut.format(value))
+      this.listarCarreras()
     },
   }
 </script>

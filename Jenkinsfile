@@ -6,9 +6,9 @@ pipeline{
         git 'https://github.com/vjlh/Mingeso'
       }
     }
-    stage('Install dependencies'){
+    stage('Compile'){
       steps{
-        sh 'npm install'
+        sh 'npm run serve'
         }
     }
     stage('Build'){
@@ -16,9 +16,9 @@ pipeline{
         sh 'npm run build'
       }
     }
-    stage('Test'){
+    stage('Run'){
       steps{
-        sh 'npm test'
+        sh 'npm run test'
       }
     }
   }

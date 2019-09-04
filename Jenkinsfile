@@ -30,7 +30,6 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'npm run serve'
-        }
       }
     }
 }

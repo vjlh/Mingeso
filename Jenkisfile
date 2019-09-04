@@ -1,13 +1,14 @@
 pipeline{
+  agent any
   stages{
-    stage('Git'){
+    stage('Checkout-git'){
       steps{
         git 'https://github.com/vjlh/Mingeso'
       }
     }
     stage('Install dependencies'){
       steps{
-        sh 'npm run build'
+        sh 'npm install'
         }
     }
     stage('Build'){

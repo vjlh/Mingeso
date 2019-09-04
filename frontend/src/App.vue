@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <v-app style="
+    background: #0000">
     <v-layout row wrap>
       <v-flex md3>
         <Navbar/>        

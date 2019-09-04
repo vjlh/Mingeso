@@ -4,7 +4,7 @@
       permanent
       absolute
       prominent
-      
+      dark
     >
       <v-list-item>
         <v-list-item-icon>

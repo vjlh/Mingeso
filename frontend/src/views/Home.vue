@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container >
     <v-form
       ref="form"
       v-model="valid"

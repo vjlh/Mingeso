@@ -1,14 +1,16 @@
 pipeline{
   agent any
+  tools {nodejs "node"}
+
   stages{
     stage('Checkout-git'){
       steps{
         git 'https://github.com/vjlh/Mingeso'
       }
     }
-    stage('Compile'){
+    stage('Install dependencies'){
       steps{
-        sh 'npm run serve'
+        sh 'npm install'
         }
     }
     stage('Build'){
@@ -18,7 +20,7 @@ pipeline{
     }
     stage('Run'){
       steps{
-        sh 'npm run test'
+        sh 'npm test'
       }
     }
   }

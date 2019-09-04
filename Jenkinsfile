@@ -1,27 +1,21 @@
-pipeline{
-  agent any
+pipeline {
+    agent any
 
-  tools{nodejs "node"}
-  stages{
-    stage('Checkout-git'){
-      steps{
-        git 'https://github.com/vjlh/Mingeso'
-      }
-    }
-    stage('Install dependencies'){
-      steps{
-        sh 'npm install'
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
         }
     }
-    stage('Build'){
-      steps{
-        sh 'npm run build'
-      }
-    }
-    stage('Run'){
-      steps{
-        sh 'npm test'
-      }
-    }
-  }
 }

@@ -19,16 +19,10 @@ pipeline {
         }
       }
 
-      stage('Unit Test'){
+      stage('Test'){
         steps {
-          sh 'npm run unit'
+          sh 'npm test'
         }
       }
 
-      stage('Deploy') {
-        steps {
-          sh 'npm run serve'
-        }
-      }
-    }
 }

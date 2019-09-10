@@ -63,7 +63,7 @@
 
       ></v-select>
 
-      <v-file-input
+      <!--<v-file-input
         v-model="files"
         counter
         accept="image/png, image/jpeg, image/bmp"
@@ -91,7 +91,7 @@
             +{{ files.length - 2 }} File(s)
           </span>
         </template>
-      </v-file-input>
+      </v-file-input>!-->
 
       <v-checkbox
         v-model="checkbox"
@@ -180,6 +180,7 @@
           console.log(e);
         });
 
+        console.log(this.files)
         this.reset()
         }
 

@@ -1,5 +1,13 @@
 <template>
     <v-container grid-list-xl>
+        <div v-if="carga1" class="text-center">
+          <v-progress-circular
+            indeterminate
+            :size="70"
+            :width="7"
+            color="primary"
+          ></v-progress-circular>
+        </div>
         <v-layout row wrap>
             <v-flex v-for="(item, index) in alumnos" :key="index" md6>
                 <v-card
@@ -11,8 +19,8 @@
                     <v-list-item-content>
                       <div class="overline mb-4">Estudiante</div>
                       <v-list-item-title class="headline mb-1">{{item.name}}</v-list-item-title>
-                      
                     </v-list-item-content>
+
                     <v-list-item-avatar
                     tile
                     size="80"
@@ -21,7 +29,10 @@
                 </v-list-item>
                 <v-list-item two-line>
                   <v-list-item-content>
-                    <v-list-item-title>Rut</v-list-item-title>
+                    <v-list-item-title>
+                      <v-icon left>mdi-account-card-details-outline</v-icon>
+                      Rut
+                      </v-list-item-title>
                     <v-list-item-subtitle>{{item.rut}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -30,7 +41,9 @@
 
                 <v-list-item two-line>
                   <v-list-item-content>                  
-                    <v-list-item-title>Fecha de Nacimiento</v-list-item-title>
+                    <v-list-item-title>
+                      <v-icon left>mdi-cake-variant</v-icon>
+                      Fecha de Nacimiento</v-list-item-title>
                     <v-list-item-subtitle>{{item.nacimiento}}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -38,7 +51,9 @@
                 
                 <v-list-item two-line> 
                   <v-list-item-content>                  
-                    <v-list-item-title>Carrera</v-list-item-title>
+                    <v-list-item-title>
+                      <v-icon left>mdi-school</v-icon>
+                      Carrera </v-list-item-title>
                     <v-list-item-subtitle>{{item.carrera}}</v-list-item-subtitle>
                   </v-list-item-content>
 
@@ -59,6 +74,7 @@ export default {
       return{
         inset: false,
         alumnos:[],
+        carga1: true,
       }
     },
     methods:{
@@ -69,6 +85,7 @@ export default {
           .get('http://localhost:8090/alumnos')
           .then(response => (this.alumnos = response.data))
         }catch(err){console.log(err)}
+        this.carga1 = false
 
       },
     },

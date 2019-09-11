@@ -1,8 +1,10 @@
 <template>
 <v-container>
-  <v-btn @click="changeView" icon color="primary">
-    <v-icon>{{icono}}</v-icon>
-  </v-btn> 
+  <div class="text-right">
+    <v-btn x-large @click="changeView" icon color="primary">
+      <v-icon>{{icono}}</v-icon>
+    </v-btn> 
+  </div>
 
   <Cardview v-if="icono ==='mdi-view-list'"/>
   <Listview v-if="icono ==='mdi-view-module'"/>

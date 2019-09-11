@@ -1,6 +1,23 @@
 <template>
   <v-container >
+    <v-snackbar
+      v-model="show"
+      color="success"
+      :timeout="timeout"
+      top
+    >
+      El alumno ha sido postulado exitósamente
+      <v-btn
+        dark
+        text
+        @click="show = false"
+      >
+        <v-icon>mdi-close-circle-outline</v-icon>
+      </v-btn>
+    </v-snackbar>
+
     <v-form
+      class="mt-6"
       ref="form"
       v-model="valid"
       lazy-validation
@@ -9,20 +26,19 @@
         v-model="name"
         :counter="125"
         :rules="nameRules"
-        prepend-icon="mdi-account-outline"
         label="Nombre"
         required
-      ></v-text-field>
+      ><template v-slot:prepend><v-icon color="primary">mdi-account-outline</v-icon></template>
+        </v-text-field>
 
       <v-text-field
         v-model="rut"
         v-mask="mask"
         :rules="rutRules"
-
-        prepend-icon="mdi-account-card-details-outline"
         label="Rut"
         required
-      ></v-text-field>
+      ><template v-slot:prepend><v-icon color="primary">mdi-account-card-details-outline</v-icon></template>
+      </v-text-field>
       
       <v-dialog
         ref="dialog"
@@ -37,12 +53,12 @@
           <v-text-field
             v-model="date"
             label="Fecha de nacimiento"
-            prepend-icon="mdi-calendar"
             required
-            :rules="[v => !!v || 'Item is required']"
+            :rules="[v => !!v || 'La fecha de nacimiento es requerida']"
             readonly
             v-on="on"
-          ></v-text-field>
+          ><template v-slot:prepend><v-icon color="primary">mdi-cake-variant</v-icon></template>
+          </v-text-field>
         </template>
         <v-date-picker v-model="date" scrollable>
           <div class="flex-grow-1"></div>
@@ -56,47 +72,17 @@
         v-model="carrera"
         :items="carreras"
         item-text="name"
-        prepend-icon="mdi-school"
-        :rules="[v => !!v || 'Item is required']"
+        :rules="[v => !!v || 'La carrera es requerida']"
         label="Carrera"
         required
 
-      ></v-select>
-
-      <!--<v-file-input
-        v-model="files"
-        counter
-        accept="image/png, image/jpeg, image/bmp"
-        label="Cargar Foto (Opcional)"
-        placeholder="Seleccionar Archivo"
-        prepend-icon="mdi-camera-outline"
-        outlined
-        :show-size="1000"
-      >
-        <template v-slot:selection="{ index, text }">
-          <v-chip
-            v-if="index < 2"
-            color="primary"
-            dark
-            label
-            small
-          >
-            {{ text }}
-          </v-chip>
-
-          <span
-            v-else-if="index === 2"
-            class="overline grey--text text--darken-3 mx-2"
-          >
-            +{{ files.length - 2 }} File(s)
-          </span>
-        </template>
-      </v-file-input>!-->
+      ><template v-slot:prepend><v-icon color="primary">mdi-school</v-icon></template>
+      </v-select>
 
       <v-checkbox
         v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Confirmar acción"
+        :rules="[v => !!v || 'Debe confirmar la postulación para continuar!']"
+        label="Confirmar postulación"
         required
       ></v-checkbox>
 
@@ -106,7 +92,7 @@
         class="mr-4"
         @click="sendUserData"
       >
-        Agregar
+        Postular
       </v-btn>
 
       <v-btn
@@ -134,6 +120,8 @@
       modal: false,
       carreras: [],
       files: [],
+      show: false,
+      timeout: 3000,
 
       name: '',
       rut: '',
@@ -141,7 +129,7 @@
       date: '',
 
       nameRules: [
-        v => !!v || 'Name is required',
+        v => !!v || 'El nombre es requerido',
         v => (v && v.length <= 125) || 'El nombre debe tener como máximo 125 carácteres',
       ],
       rutRules:[
@@ -161,6 +149,7 @@
       },
       reset () {
         this.$refs.form.reset()
+        this.date = ''
       },
 
       sendUserData() {
@@ -183,6 +172,7 @@
         console.log(this.files)
         this.reset()
         }
+        this.show = true
 
       },
       listarCarreras(){
@@ -200,3 +190,5 @@
     },
   }
 </script>
+<style>
+</style>

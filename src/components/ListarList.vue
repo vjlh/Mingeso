@@ -1,7 +1,15 @@
 <template>
   <v-container>
+    <div v-if="carga" class="text-center">
+      <v-progress-circular
+        indeterminate
+        :size="70"
+        :width="7"
+        color="primary"
+      ></v-progress-circular>
+    </div>
 		<!--Table+Filter-->
-		<v-card>
+		<v-card v-else> 
 				<v-card-title>
 					Listado de alumnos
 					<div class="flex-grow-1"></div>
@@ -41,7 +49,8 @@ import axios from 'axios'
           { text: 'Carrera', value: 'carrera' },
           { text: 'Nacimiento', value: 'nacimiento' }
         ],
-        info : []
+        info : [],
+        carga:true,
       }
     },
     methods:{
@@ -53,6 +62,7 @@ import axios from 'axios'
           .then(response => (this.info = response.data))
         }catch(err){console.log(err)}
         console.log('Se hizo')
+        this.carga = false
 
       },
     },

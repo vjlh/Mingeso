@@ -8,6 +8,20 @@
             color="primary"
           ></v-progress-circular>
         </div>
+          <v-snackbar
+          v-model="show"
+          color="error"
+          :timeout="timeout"
+          top>
+          Ha ocurrido un problema al mostrar la información
+          <v-btn
+            dark
+            text
+            @click="show = false"
+          >
+          <v-icon>mdi-close-circle-outline</v-icon>
+        </v-btn>
+      </v-snackbar>
         <v-layout row wrap>
             <v-flex v-for="(item, index) in alumnos" :key="index" md6>
                 <v-card
@@ -75,6 +89,9 @@ export default {
         inset: false,
         alumnos:[],
         carga1: true,
+        show: false,
+        timeout:7000,
+        exito:false,
       }
     },
     methods:{
@@ -84,8 +101,11 @@ export default {
          await axios 
           .get('http://localhost:8090/alumnos')
           .then(response => (this.alumnos = response.data))
-        }catch(err){console.log(err)}
-        this.carga1 = false
+          this.carga1 = false
+          this.exito = true
+        }catch(err){console.log(err)
+          this.carga1 = false
+          this.show = true}
 
       },
     },

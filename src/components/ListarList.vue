@@ -8,8 +8,23 @@
         color="primary"
       ></v-progress-circular>
     </div>
+    <v-snackbar
+      v-model="show"
+      color="error"
+      :timeout="timeout"
+      top
+    >
+      Ha ocurrido un problema al mostrar la información
+      <v-btn
+        dark
+        text
+        @click="show = false"
+      >
+        <v-icon>mdi-close-circle-outline</v-icon>
+      </v-btn>
+    </v-snackbar>
 		<!--Table+Filter-->
-		<v-card v-else> 
+		<v-card v-if="exito"> 
 				<v-card-title>
 					Listado de alumnos
 					<div class="flex-grow-1"></div>
@@ -38,6 +53,8 @@ import axios from 'axios'
     data () {
       return {
         search: '',
+        show: false,
+        timeout:7000,
         headers: [
           {
             text: 'RUT',
@@ -51,6 +68,7 @@ import axios from 'axios'
         ],
         info : [],
         carga:true,
+        exito:false,
       }
     },
     methods:{
@@ -60,9 +78,13 @@ import axios from 'axios'
          await axios 
           .get('http://localhost:8090/alumnos')
           .then(response => (this.info = response.data))
-        }catch(err){console.log(err)}
-        console.log('Se hizo')
-        this.carga = false
+          this.carga = false
+          this.exito = true
+        }catch(err){
+          console.log(err)
+          this.carga = false
+          this.show = true
+        }
 
       },
     },

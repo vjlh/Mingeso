@@ -63,7 +63,7 @@
         <v-date-picker v-model="date" scrollable>
           <div class="flex-grow-1"></div>
           <v-btn text color="primary" @click="modal = false">Cancel</v-btn>
-          <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+          <v-btn id = "button_ok" text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
         </v-date-picker>
       </v-dialog>
 

@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    tools {nodejs "nodeTS"}
     stages {
         stage('Checkout Git') {
           steps{
@@ -21,7 +22,7 @@ pipeline {
 
       stage('Test'){
         steps {
-          sh 'npm test'
+          sh 'npm run test'
         }
       }
 

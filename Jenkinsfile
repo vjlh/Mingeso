@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {nodejs "nodeTS"}
+
     stages {
         stage('Checkout Git') {
           steps{

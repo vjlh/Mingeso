@@ -28,11 +28,11 @@ pipeline {
               echo 'deployed'
           }
       }
-      stage('Test'){
+      /*stage('Test'){
         steps {
           sh 'npm run test'
           echo 'npm run test'
         }
-      }
+      }*/
   }
 }

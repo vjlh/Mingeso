@@ -26,7 +26,7 @@
         v-model="name"
         :counter="125"
         :rules="nameRules"
-        label="AYUDA"
+        label="Nombre"
         required
       ><template v-slot:prepend><v-icon color="primary">mdi-account-outline</v-icon></template>
         </v-text-field>

@@ -26,7 +26,7 @@
         v-model="name"
         :counter="125"
         :rules="nameRules"
-        label="Nombre"
+        label="AYUDA"
         required
       ><template v-slot:prepend><v-icon color="primary">mdi-account-outline</v-icon></template>
         </v-text-field>
@@ -156,7 +156,7 @@
         if (this.$refs.form.validate()){
         this.snackbar = true
 
-        axios.post('http://localhost:8090/alumno', 
+        axios.post('http://157.245.12.218:8181/MingesoBackend/alumno', 
         {
           name: this.name,
           rut: this.rut,
@@ -178,7 +178,7 @@
       listarCarreras(){
         try{
           axios 
-          .get('http://localhost:8090/carreras')
+          .get('http://157.245.12.218:8181/MingesoBackend/carreras')
           .then(response => (this.carreras = response.data))
         }catch(err){console.log(err)}
         console.log(this.carreras)

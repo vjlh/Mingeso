@@ -76,7 +76,7 @@ import axios from 'axios'
         try{
           //Se obtienen los alumnos
          await axios 
-          .get('http://localhost:8090/alumnos')
+          .get('http://157.245.12.218:8181/MingesoBackend/alumnos')
           .then(response => (this.info = response.data))
           this.carga = false
           this.exito = true

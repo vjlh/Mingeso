@@ -99,7 +99,7 @@ export default {
         try{
           //Se obtienen los alumnos
          await axios 
-          .get('http://localhost:8090/alumnos')
+          .get('http://157.245.12.218:8181/MingesoBackend/alumnos')
           .then(response => (this.alumnos = response.data))
           this.carga1 = false
           this.exito = true

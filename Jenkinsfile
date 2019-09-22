@@ -11,14 +11,14 @@ pipeline {
 
       stage('Dependencies') {
         steps {
-          /*sh 'npm install'*/
+          sh 'npm install'
           echo 'npm install'
         }
       }
 
       stage('Build'){
         steps{
-          /*sh 'npm run build'*/
+          sh 'npm run build'
           echo 'npm run build'
         }
       }

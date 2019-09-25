@@ -11,7 +11,7 @@
             <v-icon color='secondary' left>mdi-account-card-details</v-icon>            
         </v-list-item-icon>
        
-        <v-list-item-title> Gestión de alumnos</v-list-item-title>
+        <v-list-item-title> Gestión de alumnos 2019</v-list-item-title>
 
       </v-list-item>
 
